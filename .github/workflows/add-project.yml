@@ -1,0 +1,48 @@
+name: Add Project
+
+on:
+  repository_dispatch:
+    types: [add_project]
+
+jobs:
+  add-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Load payload
+        run: echo "Payload: ${{ github.event.client_payload }}"
+
+      - name: Add project to JSON
+        run: |
+          # نصب jq برای پردازش JSON
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+          # فایل موجود
+          FILE="projects.json"
+
+          # بارگذاری پروژه جدید از payload
+          TITLE="${{ github.event.client_payload.title }}"
+          IMAGE="${{ github.event.client_payload.image }}"
+          LINK="${{ github.event.client_payload.link }}"
+          DATE=$(date +"%B %Y" | awk '{print $1" "$2}') # شمسی نشده، بعدا میشه تبدیل کرد
+
+          # اضافه کردن پروژه به فایل JSON
+          TMP=$(mktemp)
+          jq --arg title "$TITLE" --arg image "$IMAGE" --arg link "$LINK" --arg date "$DATE" \
+             '. += [{"title": $title, "image": $image, "link": $link, "date": $date}]' $FILE > $TMP && mv $TMP $FILE
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add projects.json
+          git commit -m "Add new project from client"
+          git push

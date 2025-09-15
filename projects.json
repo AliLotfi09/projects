@@ -1,0 +1,14 @@
+[
+    {
+        "title": "دوره آموزش برنامه‌نویسی مینی اپ تلگرام",
+        "image": "https://eyfan.ir/files/Telegram-Mini-App.png",
+        "link": "",
+        "description": "این پروژه شامل آموزش ساخت مینی اپ تلگرام با JavaScript است."
+    },
+    {
+        "title": "پروژه دوم",
+        "image": "https://example.com/image.png",
+        "link": "#",
+        "description": "توضیح کوتاه درباره پروژه دوم."
+    }
+]
