@@ -67,6 +67,15 @@
   --social-telegram: linear-gradient(215deg, #4FC3F7 0%, #0277BD 100%);
   --social-github: linear-gradient(215deg, #90a4ae 0%, #37474f 100%);
   --shadow-soft: 2px 2px 12px 0px rgba(0, 0, 0, .125);
+  /* لایت مود (پیش‌فرض) */
+  --scrollbar: #cfcfcf;
+  --bg-color: #ffffff;
+  --text-color: #202020;
+  --color: #202020;
+  --shimmer-static-bg: #f1f1f1;
+  --border: rgba(0, 0, 0, .1);
+  --border-light: rgba(0, 0, 0, .05);
+  --accent: #E53935;
 }
 
 body.dark {
@@ -273,7 +282,7 @@ a {
 
 }
 
-.proj-meta > span {
+.proj-meta>span {
   font-size: 1.2rem;
   font-weight: 500;
   direction: ltr;
@@ -495,4 +504,22 @@ footer {
 
 .markdown-body li {
   margin-bottom: 0.5em;
+}
+
+/* تضمین می‌کنه svgها رنگشونو از متغیر --text-color بگیرن */
+.icon {
+  color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.icon svg path {
+  fill: currentColor;
 }
